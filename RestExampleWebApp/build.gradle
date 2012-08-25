@@ -1,0 +1,29 @@
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+jstlVersion 	= "1.2"
+slf4jVersion 	= "1.5.8"
+springVersion 	= '3.1.2.RELEASE'
+
+stopPort = 8090
+stopKey = 'foo'
+
+repositories {
+    	mavenLocal()
+    	mavenCentral()
+}
+
+dependencies {
+	
+	providedCompile "javax.servlet:servlet-api:2.5"
+
+	compile "org.springframework:spring-webmvc:$springVersion",
+            	"org.springframework:spring-aop:$springVersion",
+		"org.springframework:spring-tx:$springVersion"
+
+	compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+	compile "jstl:jstl:$jstlVersion"
+}
+
