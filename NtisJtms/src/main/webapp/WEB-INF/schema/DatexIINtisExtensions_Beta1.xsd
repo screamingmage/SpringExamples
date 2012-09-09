@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:D2LogicalModel="http://datex2.eu/schema/2/2_0"
+	xmlns="http://www.thalesgroup.com/NTIS/Datex2Extensions/1.0Beta1"
+	elementFormDefault="unqualified"
+	targetNamespace="http://www.thalesgroup.com/NTIS/Datex2Extensions/1.0Beta1"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:import schemaLocation="DATEXIISchema_2_2_0withdefinitions.xsd" namespace="http://datex2.eu/schema/2/2_0" />
+
+	<xs:simpleType name="Guid">
+		<xs:annotation>
+			<xs:documentation>
+				A GUID represented as a character string of length
+				40.
+				This should be in the standard form for string representation of
+				a GUID
+				(a.k.a UUID), as specified by www.ieft.org/rfc/rfc4122.txt,
+				prefixed
+				by "GUID",
+				e.g. GUIDff4740a5-0690-451a-ac83-04950306d95a
+				Upper or lower case digits are allowed.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:minLength value="40" />
+			<xs:maxLength value="40" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- ***************** -->
+	<!-- ANPR Traffic Data -->
+	<!-- ***************** -->
+	
+	<xs:complexType name="ANPRCameraData">
+		<xs:sequence>
+			<xs:element name="SourceTimeStamp" type="D2LogicalModel:DateTime">
+				<xs:annotation>
+					<xs:documentation>The datetime of the sighting at the outstation.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CollectionTimeStamp" type="D2LogicalModel:DateTime">
+				<xs:annotation>
+					<xs:documentation>The datetime of the collection at JTMS Outstation
+						Handler.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Camera" type="Guid">
+				<xs:annotation>
+					<xs:documentation>GUID of ANPR camera at site</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TravelTimeData">
+		<xs:sequence>
+			<xs:element name="timeStamp" type="D2LogicalModel:DateTime">
+				<xs:annotation>
+					<xs:documentation>The datetime the travelTime was calculated.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="travelTime" type="xs:unsignedInt">
+				<xs:annotation>
+					<xs:documentation>The Travel time in seconds between the points
+						defined by the 2 cameras
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isSuspect" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>When true, indicates that the data is suspect and
+						may be erroneous (e.g. one of the ANPR stations may
+						be out of time
+						sync.)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JourneyTime">
+		<xs:sequence>
+			<xs:element name="UpstreamCamera" type="ANPRCameraData">
+				<xs:annotation>
+					<xs:documentation>The Upstream Camera sighting data.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DownstreamCamera" type="ANPRCameraData">
+				<xs:annotation>
+					<xs:documentation>The Downstream Camera sighting data.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="travelTime" type="TravelTimeData">
+				<xs:annotation>
+					<xs:documentation>The Travel Time data.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JourneyTimes">
+		<xs:annotation>
+			<xs:documentation>A sequence of zero or more JourneyTime elements.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="journeyTime" type="JourneyTime" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JourneyTimePublication">
+		<xs:annotation>
+			<xs:documentation>A publication containing one or more journey times
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent mixed="false">
+			<xs:extension base="D2LogicalModel:PayloadPublication">
+				<xs:sequence>
+					<xs:element name="publicationTimeStamp" type="D2LogicalModel:DateTime">
+						<xs:annotation>
+							<xs:documentation>The publication timeStamp of the travel).
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="journeyTimes" type="JourneyTimes" minOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<!-- *********************************** -->
+	<!-- NTIS JTMS client configuration data -->
+	<!-- *********************************** -->
+	
+	<xs:complexType name="DataUrls">
+		<xs:sequence>
+			<xs:element name="trafficData" type="D2LogicalModel:UrlLink" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>NTIS url for publishing ANPR traffic data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="performanceInformation" type="D2LogicalModel:UrlLink" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>NTIS url for publishing ANPR Outstation performation information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusInformation" type="D2LogicalModel:UrlLink" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>NTIS url for publishing ANPR Outstation status information</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Credentials">
+		<xs:sequence>
+			<xs:element name="username" type="D2LogicalModel:String" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>TODO</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="password" type="D2LogicalModel:String" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>TODO</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- ******************* -->
+	<!-- ANPR Equipment data -->
+	<!-- ******************* -->
+	
+	<xs:complexType name="ANPRCamera">
+		<xs:annotation>
+			<xs:documentation>TODO</xs:documentation>	
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="guid" type="Guid"/>
+			<xs:element name="equipmentId" type="D2LogicalModel:NonNegativeInteger"/>
+			<xs:element name="description" type="D2LogicalModel:String"/>
+			<xs:element name="outstation" type="D2LogicalModel:String"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRSite">
+		<xs:annotation>
+			<xs:documentation>TODO</xs:documentation>	
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="siteId" type="D2LogicalModel:NonNegativeInteger"/>
+			<xs:element name="description" type="D2LogicalModel:String"/>
+			<xs:element name="cameras" type="ANPRCamera" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRRoute">
+		<xs:annotation>
+			<xs:documentation>TODO</xs:documentation>	
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="routeId" type="D2LogicalModel:NonNegativeInteger"/>
+			<xs:element name="upstream" type="ANPRSite"/>
+			<xs:element name="downstream" type="ANPRSite"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

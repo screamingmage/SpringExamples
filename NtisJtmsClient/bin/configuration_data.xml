@@ -1,0 +1,22 @@
+<AnprConfigurationRequest
+	xmlns="http://www.thalesgroup.com/NTIS/Datex2Extensions/1.0Beta1"
+	xmlns:d2lm="http://datex2.eu/schema/2/2d2lm">
+	<urls>
+		<trafficData>
+			<d2lm:urlLinkAddress>http://localhost:8080/NtisJtmsClient/ntisjtms/</d2lm:urlLinkAddress>
+		</trafficData>
+		<performanceInformation>
+			<d2lm:urlLinkAddress>http://localhost:8080/NtisJtmsClient/ntisjtms/</d2lm:urlLinkAddress>
+		</performanceInformation>
+		<statusInformation>
+			<d2lm:urlLinkAddress>http://localhost:8080/NtisJtmsClient/ntisjtms/</d2lm:urlLinkAddress>
+		</statusInformation>
+	</urls>
+	<credentials>
+		<username>ntis</username>
+		<password>ntispassword</password>
+	</credentials>
+	<lastDataRetrievalTime>2012-09-03T10:00:00</lastDataRetrievalTime>
+	<maxPacketSize>30000</maxPacketSize>
+	<connectionRetryPeriod>300</connectionRetryPeriod>
+</AnprConfigurationRequest>

@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+project.ext {
+	jdomVersion 	= "1.1.3"
+	jstlVersion 	= "1.2"
+	slf4jVersion 	= "1.5.8"
+	springWsVersion = '2.1.0.RELEASE'
+	springVersion 	= '3.1.2.RELEASE'
+}
+
+httpPort = 8080
+stopPort = 8090
+stopKey = 'foo'
+
+repositories {
+    	mavenLocal()
+    	mavenCentral()
+}
+
+dependencies {
+	
+	providedCompile "javax.servlet:servlet-api:2.5"
+
+	compile "dom4j:dom4j:1.6.1"
+	
+	compile "org.apache.httpcomponents:httpclient:4.2.1"
+	
+	compile "org.apache.ws.xmlschema:xmlschema-core:2.0.3"
+		
+	compile "org.slf4j:slf4j-log4j12:$slf4jVersion"
+	
+	compile "org.springframework.ws:spring-ws-core:$springWsVersion"
+	
+	compile "org.springframework:spring-webmvc:$springVersion"			
+
+}
