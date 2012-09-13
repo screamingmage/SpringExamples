@@ -8,6 +8,10 @@
 	<xs:import schemaLocation="DatexIINtisExtensions_Beta1.xsd" namespace="http://www.thalesgroup.com/NTIS/Datex2Extensions/1.0Beta1" />
 
 	<xs:element name="AnprConfigurationRequest">
+		<xs:annotation>
+			<xs:documentation>Configuration data required by NTIS JTMS to send 
+				data successfully to the NTIS client</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:all>
 				<xs:element name="urls" type="ext:DataUrls" minOccurs="1" maxOccurs="1"/>
@@ -20,9 +24,6 @@
 	</xs:element>
 
 	<xs:element name="AnprConfigurationResponse">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>
-		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="message" type="D2LogicalModel:String"/>
@@ -32,21 +33,19 @@
 	
 	<xs:element name="AnprEquipmentRequest">
 		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>
+			<xs:documentation>Equipment asset data required for ANPR traffic data. Includes 
+				information on ANPR routes, sites and the cameras</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="routes" type="ext:ANPRRoute"/>
 				<xs:element name="cameras" type="ext:ANPRCamera"/>
 				<xs:element name="sites" type="ext:ANPRSite"/>
-				<xs:element name="routes" type="ext:ANPRRoute"/>				
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	
 	<xs:element name="AnprEquipmentResponse">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>
-		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="message" type="D2LogicalModel:String"/>
@@ -56,7 +55,8 @@
 	
 	<xs:element name="AnprTrafficDataRequest">
 		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>
+			<xs:documentation>ANPR Traffic data containing travel time information 
+				for a number of routes</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -66,9 +66,6 @@
 	</xs:element>
 
 	<xs:element name="AnprTrafficDataResponse">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>
-		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="message" type="D2LogicalModel:String"/>
