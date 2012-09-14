@@ -189,15 +189,33 @@
 		<xs:sequence>
 			<xs:element name="siteId" type="D2LogicalModel:NonNegativeInteger"/>
 			<xs:element name="description" type="D2LogicalModel:String"/>
-			<xs:element name="cameras" type="ANPRCamera" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="cameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	
 	<xs:complexType name="ANPRRoute">
 		<xs:sequence>
 			<xs:element name="routeId" type="D2LogicalModel:NonNegativeInteger"/>
-			<xs:element name="upstream" type="ANPRSite"/>
-			<xs:element name="downstream" type="ANPRSite"/>
+			<xs:element name="upstreamCameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="downstreamCameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRCameras">
+		<xs:sequence>
+			<xs:element name="camera" type="ANPRCamera" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="ANPRSites">
+		<xs:sequence>
+			<xs:element name="site" type="ANPRSite" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRRoutes">
+		<xs:sequence>
+			<xs:element name="route" type="ANPRRoute" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

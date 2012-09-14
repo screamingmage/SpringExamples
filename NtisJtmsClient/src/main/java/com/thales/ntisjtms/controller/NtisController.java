@@ -28,6 +28,7 @@ public class NtisController {
 	@RequestMapping(value="/send", method=RequestMethod.POST, params="equipment")
 	public ModelAndView equipment(@RequestParam("url") String url) { 
 		LOG.info("publishing equipment to " + url);
+		publishingService.sendEquipmentData(url);
 		return new ModelAndView("redirect:home");
 	}
 	

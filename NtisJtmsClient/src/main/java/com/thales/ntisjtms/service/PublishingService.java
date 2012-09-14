@@ -29,5 +29,16 @@ public class PublishingService {
         
         return webServiceTemplate.sendSourceAndReceiveToResult(NTIS_JTMS_URL, source, result);
 	}
+
+	public boolean sendEquipmentData(String url) {
+		InputStream configurationData = this.getClass().getClassLoader().getResourceAsStream("equipment_data.xml");
+		Assert.notNull(configurationData);
+		
+		StreamSource source = new StreamSource(configurationData);
+        StreamResult result = new StreamResult(System.out);
+        
+        return webServiceTemplate.sendSourceAndReceiveToResult(NTIS_JTMS_URL, source, result);
+		
+	}
 	
 }

@@ -38,9 +38,9 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="routes" type="ext:ANPRRoute"/>
-				<xs:element name="cameras" type="ext:ANPRCamera"/>
-				<xs:element name="sites" type="ext:ANPRSite"/>
+				<xs:element name="routes" type="ext:ANPRRoutes" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="cameras" type="ext:ANPRCameras" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="sites" type="ext:ANPRSites" minOccurs="1" maxOccurs="1"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

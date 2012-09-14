@@ -143,12 +143,14 @@
 			</xs:element>
 			<xs:element name="performanceInformation" type="D2LogicalModel:UrlLink" minOccurs="1">
 				<xs:annotation>
-					<xs:documentation>NTIS url for publishing ANPR Outstation performation information</xs:documentation>
+					<xs:documentation>NTIS url for publishing ANPR Outstation 
+					performation information</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="statusInformation" type="D2LogicalModel:UrlLink" minOccurs="1">
 				<xs:annotation>
-					<xs:documentation>NTIS url for publishing ANPR Outstation status information</xs:documentation>
+					<xs:documentation>NTIS url for publishing ANPR Outstation 
+						status information</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -157,12 +159,14 @@
 		<xs:sequence>
 			<xs:element name="username" type="D2LogicalModel:String" minOccurs="1">
 				<xs:annotation>
-					<xs:documentation>TODO</xs:documentation>
+					<xs:documentation>Username sent by the handler, used by the client to 
+						assure the data source is trustworthy.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="password" type="D2LogicalModel:String" minOccurs="1">
 				<xs:annotation>
-					<xs:documentation>TODO</xs:documentation>
+					<xs:documentation>Username sent by the handler, used by the client to 
+						assure the data source is trustworthy.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -173,9 +177,6 @@
 	<!-- ******************* -->
 	
 	<xs:complexType name="ANPRCamera">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>	
-		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="guid" type="Guid"/>
 			<xs:element name="equipmentId" type="D2LogicalModel:NonNegativeInteger"/>
@@ -185,24 +186,36 @@
 	</xs:complexType>
 	
 	<xs:complexType name="ANPRSite">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>	
-		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="siteId" type="D2LogicalModel:NonNegativeInteger"/>
 			<xs:element name="description" type="D2LogicalModel:String"/>
-			<xs:element name="cameras" type="ANPRCamera" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="cameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	
 	<xs:complexType name="ANPRRoute">
-		<xs:annotation>
-			<xs:documentation>TODO</xs:documentation>	
-		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="routeId" type="D2LogicalModel:NonNegativeInteger"/>
-			<xs:element name="upstream" type="ANPRSite"/>
-			<xs:element name="downstream" type="ANPRSite"/>
+			<xs:element name="upstreamCameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="downstreamCameras" type="ANPRCameras" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRCameras">
+		<xs:sequence>
+			<xs:element name="camera" type="ANPRCamera" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="ANPRSites">
+		<xs:sequence>
+			<xs:element name="site" type="ANPRSite" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ANPRRoutes">
+		<xs:sequence>
+			<xs:element name="route" type="ANPRRoute" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
